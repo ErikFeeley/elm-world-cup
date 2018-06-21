@@ -28,13 +28,15 @@ type PageState
 
 
 type alias Model =
-    { pageState : PageState }
+    { pageState : PageState
+    , isOpenMobileNav : Bool
+    }
 
 
 init : Location -> ( Model, Cmd Msg )
 init location =
     setRoute (Route.fromLocation location)
-        { pageState = Loaded initialPage }
+        { pageState = Loaded initialPage, isOpenMobileNav = False }
 
 
 initialPage : Page
@@ -50,34 +52,34 @@ view : Model -> Html Msg
 view model =
     case model.pageState of
         Loaded page ->
-            viewPage False page
+            viewPage False model.isOpenMobileNav page
 
         TransitioningFrom page ->
-            viewPage True page
+            viewPage True model.isOpenMobileNav page
 
 
-viewPage : Bool -> Page -> Html Msg
-viewPage isLoading page =
+viewPage : Bool -> Bool -> Page -> Html Msg
+viewPage isLoading isOpenMobileNav page =
     case page of
         Blank ->
             Html.text ""
-                |> frame Page.Other isLoading
+                |> frame Page.Other isLoading isOpenMobileNav
 
         NotFound ->
             NotFound.view
-                |> frame Page.Other isLoading
+                |> frame Page.Other isLoading isOpenMobileNav
 
         Errored subModel ->
             Errored.view subModel
-                |> frame Page.Other isLoading
+                |> frame Page.Other isLoading isOpenMobileNav
 
         Home subModel ->
             Home.view subModel
-                |> frame Page.Home isLoading
+                |> frame Page.Home isLoading isOpenMobileNav
 
         TeamResult subModel ->
             TeamResult.view subModel
-                |> frame Page.TeamResult isLoading
+                |> frame Page.TeamResult isLoading isOpenMobileNav
                 |> Html.map TeamMsg
 
 
@@ -118,6 +120,7 @@ type Msg
     | HomeLoaded (Result PageLoadError Home.Model)
     | TeamResultLoaded (Result PageLoadError TeamResult.Model)
     | TeamMsg TeamResult.Msg
+    | ToggleMobileNav
 
 
 setRoute : Maybe Route -> Model -> ( Model, Cmd Msg )
@@ -170,6 +173,9 @@ updatePage page msg model =
     case ( msg, page ) of
         ( SetRoute route, _ ) ->
             setRoute route model
+
+        ( ToggleMobileNav, _ ) ->
+            ( { model | isOpenMobileNav = not model.isOpenMobileNav }, Cmd.none )
 
         ( HomeLoaded (Ok subModel), _ ) ->
             ( { model | pageState = Loaded (Home subModel) }, Cmd.none )

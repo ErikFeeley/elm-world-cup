@@ -15855,8 +15855,8 @@ var _user$project$Views_Page$navBarLink = F3(
 			},
 			linkContent);
 	});
-var _user$project$Views_Page$viewNavbar = F2(
-	function (page, isLoading) {
+var _user$project$Views_Page$viewNavbar = F3(
+	function (page, isLoading, isOpenMobileNav) {
 		var linkTo = _user$project$Views_Page$navBarLink(page);
 		return A2(
 			_elm_lang$html$Html$nav,
@@ -15908,7 +15908,16 @@ var _user$project$Views_Page$viewNavbar = F2(
 											_1: {
 												ctor: '::',
 												_0: A2(_elm_lang$html$Html_Attributes$attribute, 'role', 'button'),
-												_1: {ctor: '[]'}
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$classList(
+														{
+															ctor: '::',
+															_0: {ctor: '_Tuple2', _0: 'is-active', _1: isOpenMobileNav},
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}
 											}
 										}
 									}
@@ -15957,7 +15966,16 @@ var _user$project$Views_Page$viewNavbar = F2(
 						{
 							ctor: '::',
 							_0: _elm_lang$html$Html_Attributes$class('navbar-menu'),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$classList(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'is-active', _1: isOpenMobileNav},
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
 						},
 						{
 							ctor: '::',
@@ -16023,14 +16041,14 @@ var _user$project$Views_Page$viewNavbar = F2(
 				}
 			});
 	});
-var _user$project$Views_Page$frame = F3(
-	function (page, isLoading, content) {
+var _user$project$Views_Page$frame = F4(
+	function (page, isLoading, isOpenMobileNav, content) {
 		return A2(
 			_elm_lang$html$Html$div,
 			{ctor: '[]'},
 			{
 				ctor: '::',
-				_0: A2(_user$project$Views_Page$viewNavbar, page, isLoading),
+				_0: A3(_user$project$Views_Page$viewNavbar, page, isLoading, isOpenMobileNav),
 				_1: {
 					ctor: '::',
 					_0: content,
@@ -16831,9 +16849,10 @@ var _user$project$Main$subscriptions = function (model) {
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$Model = function (a) {
-	return {pageState: a};
-};
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {pageState: a, isOpenMobileNav: b};
+	});
 var _user$project$Main$TeamResult = function (a) {
 	return {ctor: 'TeamResult', _0: a};
 };
@@ -16852,50 +16871,55 @@ var _user$project$Main$TransitioningFrom = function (a) {
 var _user$project$Main$Loaded = function (a) {
 	return {ctor: 'Loaded', _0: a};
 };
+var _user$project$Main$ToggleMobileNav = {ctor: 'ToggleMobileNav'};
 var _user$project$Main$TeamMsg = function (a) {
 	return {ctor: 'TeamMsg', _0: a};
 };
-var _user$project$Main$viewPage = F2(
-	function (isLoading, page) {
+var _user$project$Main$viewPage = F3(
+	function (isLoading, isOpenMobileNav, page) {
 		var _p2 = page;
 		switch (_p2.ctor) {
 			case 'Blank':
-				return A3(
+				return A4(
 					_user$project$Views_Page$frame,
 					_user$project$Views_Page$Other,
 					isLoading,
+					isOpenMobileNav,
 					_elm_lang$html$Html$text(''));
 			case 'NotFound':
-				return A3(_user$project$Views_Page$frame, _user$project$Views_Page$Other, isLoading, _user$project$Page_NotFound$view);
+				return A4(_user$project$Views_Page$frame, _user$project$Views_Page$Other, isLoading, isOpenMobileNav, _user$project$Page_NotFound$view);
 			case 'Errored':
-				return A3(
+				return A4(
 					_user$project$Views_Page$frame,
 					_user$project$Views_Page$Other,
 					isLoading,
+					isOpenMobileNav,
 					_user$project$Page_Errored$view(_p2._0));
 			case 'Home':
-				return A3(
+				return A4(
 					_user$project$Views_Page$frame,
 					_user$project$Views_Page$Home,
 					isLoading,
+					isOpenMobileNav,
 					_user$project$Page_Home$view(_p2._0));
 			default:
 				return A2(
 					_elm_lang$html$Html$map,
 					_user$project$Main$TeamMsg,
-					A3(
+					A4(
 						_user$project$Views_Page$frame,
 						_user$project$Views_Page$TeamResult,
 						isLoading,
+						isOpenMobileNav,
 						_user$project$Page_TeamResult$view(_p2._0)));
 		}
 	});
 var _user$project$Main$view = function (model) {
 	var _p3 = model.pageState;
 	if (_p3.ctor === 'Loaded') {
-		return A2(_user$project$Main$viewPage, false, _p3._0);
+		return A3(_user$project$Main$viewPage, false, model.isOpenMobileNav, _p3._0);
 	} else {
-		return A2(_user$project$Main$viewPage, true, _p3._0);
+		return A3(_user$project$Main$viewPage, true, model.isOpenMobileNav, _p3._0);
 	}
 };
 var _user$project$Main$TeamResultLoaded = function (a) {
@@ -16950,7 +16974,8 @@ var _user$project$Main$init = function (location) {
 		_user$project$Main$setRoute,
 		_user$project$Route$fromLocation(location),
 		{
-			pageState: _user$project$Main$Loaded(_user$project$Main$initialPage)
+			pageState: _user$project$Main$Loaded(_user$project$Main$initialPage),
+			isOpenMobileNav: false
 		});
 };
 var _user$project$Main$updatePage = F3(
@@ -16975,6 +17000,14 @@ var _user$project$Main$updatePage = F3(
 		switch (_p6._0.ctor) {
 			case 'SetRoute':
 				return A2(_user$project$Main$setRoute, _p6._0._0, model);
+			case 'ToggleMobileNav':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{isOpenMobileNav: !model.isOpenMobileNav}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 			case 'HomeLoaded':
 				if (_p6._0._0.ctor === 'Ok') {
 					return {
@@ -17058,7 +17091,7 @@ var _user$project$Main$main = A2(
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Route.Route":{"args":[],"tags":{"Home":[],"Root":[],"TeamResult":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Main.Msg":{"args":[],"tags":{"TeamMsg":["Page.TeamResult.Msg"],"HomeLoaded":["Result.Result Page.Errored.PageLoadError Page.Home.Model"],"SetRoute":["Maybe.Maybe Route.Route"],"TeamResultLoaded":["Result.Result Page.Errored.PageLoadError Page.TeamResult.Model"]}},"Page.Errored.PageLoadError":{"args":[],"tags":{"PageLoadError":["Page.Errored.Model"]}},"Views.Page.ActivePage":{"args":[],"tags":{"Other":[],"Home":[],"TeamResult":[]}},"Page.TeamResult.Msg":{"args":[],"tags":{"SetSearch":["String"],"SetSelectedTeam":["Int"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}}},"aliases":{"Page.Errored.Model":{"args":[],"type":"{ activePage : Views.Page.ActivePage, errorMessage : String }"},"Data.TeamResult.TeamResult":{"args":[],"type":"{ id : Int , country : String , alternateName : String , fifaCode : String , groupId : Int , groupLetter : String , wins : Int , draws : Int , losses : Int , gamesPlayed : Int , points : Int , goalsFor : Int , goalsAgainst : Int , goalDifferential : Int }"},"Data.Match.Match":{"args":[],"type":"{ venue : String , location : String , status : String , time : String , fifaId : String , datetime : String , lastEventUpdateAt : String , lastScoreUpdateAt : String , homeTeam : Data.Match.Team , awayTeam : Data.Match.Team , winner : String , winnerCode : String , homeTeamEvents : List Data.Match.Event , awayTeamEvents : List Data.Match.Event }"},"Page.Home.Model":{"args":[],"type":"{ matches : List Data.Match.Match }"},"Data.Match.Team":{"args":[],"type":"{ country : String, code : String, goals : Int }"},"Data.Match.Event":{"args":[],"type":"{ id : Int, typeOfEvent : String, player : String, time : String }"},"Page.TeamResult.Model":{"args":[],"type":"{ searchInput : String , searchResults : List Data.TeamResult.TeamResult , selectedTeam : Maybe.Maybe Data.TeamResult.TeamResult , teamResults : List Data.TeamResult.TeamResult }"}},"message":"Main.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"message":"Main.Msg","aliases":{"Data.Match.Event":{"type":"{ id : Int, typeOfEvent : String, player : String, time : String }","args":[]},"Page.TeamResult.Model":{"type":"{ searchInput : String , searchResults : List Data.TeamResult.TeamResult , selectedTeam : Maybe.Maybe Data.TeamResult.TeamResult , teamResults : List Data.TeamResult.TeamResult }","args":[]},"Page.Errored.Model":{"type":"{ activePage : Views.Page.ActivePage, errorMessage : String }","args":[]},"Data.Match.Match":{"type":"{ venue : String , location : String , status : String , time : String , fifaId : String , datetime : String , lastEventUpdateAt : String , lastScoreUpdateAt : String , homeTeam : Data.Match.Team , awayTeam : Data.Match.Team , winner : String , winnerCode : String , homeTeamEvents : List Data.Match.Event , awayTeamEvents : List Data.Match.Event }","args":[]},"Data.TeamResult.TeamResult":{"type":"{ id : Int , country : String , alternateName : String , fifaCode : String , groupId : Int , groupLetter : String , wins : Int , draws : Int , losses : Int , gamesPlayed : Int , points : Int , goalsFor : Int , goalsAgainst : Int , goalDifferential : Int }","args":[]},"Page.Home.Model":{"type":"{ matches : List Data.Match.Match }","args":[]},"Data.Match.Team":{"type":"{ country : String, code : String, goals : Int }","args":[]}},"unions":{"Main.Msg":{"tags":{"TeamResultLoaded":["Result.Result Page.Errored.PageLoadError Page.TeamResult.Model"],"ToggleMobileNav":[],"TeamMsg":["Page.TeamResult.Msg"],"HomeLoaded":["Result.Result Page.Errored.PageLoadError Page.Home.Model"],"SetRoute":["Maybe.Maybe Route.Route"]},"args":[]},"Page.Errored.PageLoadError":{"tags":{"PageLoadError":["Page.Errored.Model"]},"args":[]},"Views.Page.ActivePage":{"tags":{"TeamResult":[],"Other":[],"Home":[]},"args":[]},"Result.Result":{"tags":{"Err":["error"],"Ok":["value"]},"args":["error","value"]},"Page.TeamResult.Msg":{"tags":{"SetSearch":["String"],"SetSelectedTeam":["Int"]},"args":[]},"Maybe.Maybe":{"tags":{"Nothing":[],"Just":["a"]},"args":["a"]},"Route.Route":{"tags":{"TeamResult":[],"Home":[],"Root":[]},"args":[]}}},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

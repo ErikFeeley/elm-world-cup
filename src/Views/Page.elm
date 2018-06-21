@@ -42,24 +42,31 @@ type ActivePage
 -}
 
 
-frame : ActivePage -> Bool -> Html msg -> Html msg
-frame page isLoading content =
+frame : ActivePage -> Bool -> Bool -> Html msg -> Html msg
+frame page isLoading isOpenMobileNav content =
     div []
-        [ viewNavbar page isLoading
+        [ viewNavbar page isLoading isOpenMobileNav
         , content
         ]
 
 
-viewNavbar : ActivePage -> Bool -> Html msg
-viewNavbar page isLoading =
+viewNavbar : ActivePage -> Bool -> Bool -> Html msg
+viewNavbar page isLoading isOpenMobileNav =
     let
         linkTo =
             navBarLink page
     in
     nav [ class "navbar is-primary" ]
-        [ div [ class "navbar-brand", Route.href Route.Home ]
+        [ div
+            [ class "navbar-brand", Route.href Route.Home ]
             [ a [ class "navbar-item" ] [ text "Elm World Cup" ]
-            , a [ attribute "aria-expanded" "false", attribute "aria-label" "menu", class "navbar-burger", attribute "role" "button" ]
+            , a
+                [ attribute "aria-expanded" "false"
+                , attribute "aria-label" "menu"
+                , class "navbar-burger"
+                , attribute "role" "button"
+                , classList [ ( "is-active", isOpenMobileNav ) ]
+                ]
                 [ span [ attribute "aria-hidden" "true" ]
                     []
                 , span [ attribute "aria-hidden" "true" ]
@@ -68,7 +75,7 @@ viewNavbar page isLoading =
                     []
                 ]
             ]
-        , div [ class "navbar-menu" ]
+        , div [ class "navbar-menu", classList [ ( "is-active", isOpenMobileNav ) ] ]
             [ div [ class "navbar-start" ]
                 [ linkTo Route.Home [ text "Todays Matches" ]
                 , linkTo Route.TeamResult [ text "Team Results" ]
