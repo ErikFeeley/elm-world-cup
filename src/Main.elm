@@ -120,7 +120,6 @@ type Msg
     | HomeLoaded (Result PageLoadError Home.Model)
     | TeamResultLoaded (Result PageLoadError TeamResult.Model)
     | TeamMsg TeamResult.Msg
-    | ToggleMobileNav
 
 
 setRoute : Maybe Route -> Model -> ( Model, Cmd Msg )
@@ -173,9 +172,6 @@ updatePage page msg model =
     case ( msg, page ) of
         ( SetRoute route, _ ) ->
             setRoute route model
-
-        ( ToggleMobileNav, _ ) ->
-            ( { model | isOpenMobileNav = not model.isOpenMobileNav }, Cmd.none )
 
         ( HomeLoaded (Ok subModel), _ ) ->
             ( { model | pageState = Loaded (Home subModel) }, Cmd.none )

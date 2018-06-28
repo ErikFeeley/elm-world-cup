@@ -41,8 +41,8 @@ init =
 -- VIEW
 
 
-viewSearchArea : Html Msg
-viewSearchArea =
+viewSearchArea : String -> Html Msg
+viewSearchArea searchInput =
     div [ class "columns" ]
         [ div [ class "column" ]
             [ div [ class "field" ]
@@ -54,6 +54,7 @@ viewSearchArea =
                         , onInput SetSearch
                         , placeholder "Text input"
                         , type_ "text"
+                        , value searchInput
                         ]
                         []
                     ]
@@ -112,7 +113,7 @@ view : Model -> Html Msg
 view model =
     section [ class "section" ]
         [ div [ class "container" ]
-            [ viewSearchArea
+            [ viewSearchArea model.searchInput
             , viewSearchResults model.searchResults
             , viewSelectedTeam model.selectedTeam
             ]
@@ -135,12 +136,15 @@ update msg model =
             ( { model
                 | searchInput = search
                 , searchResults =
-                    List.filter
-                        (\r ->
-                            String.contains (String.toLower search) (String.toLower r.fifaCode)
-                                || String.contains (String.toLower search) (String.toLower r.country)
-                        )
-                        model.teamResults
+                    if String.isEmpty search then
+                        []
+                    else
+                        List.filter
+                            (\r ->
+                                String.contains (String.toLower search) (String.toLower r.fifaCode)
+                                    || String.contains (String.toLower search) (String.toLower r.country)
+                            )
+                            model.teamResults
               }
             , Cmd.none
             )

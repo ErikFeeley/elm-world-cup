@@ -16392,7 +16392,7 @@ var _user$project$Page_TeamResult$update = F2(
 					model,
 					{
 						searchInput: _p1,
-						searchResults: A2(
+						searchResults: _elm_lang$core$String$isEmpty(_p1) ? {ctor: '[]'} : A2(
 							_elm_lang$core$List$filter,
 							function (r) {
 								return A2(
@@ -16689,100 +16689,106 @@ var _user$project$Page_TeamResult$viewSearchResults = function (searchResults) {
 var _user$project$Page_TeamResult$SetSearch = function (a) {
 	return {ctor: 'SetSearch', _0: a};
 };
-var _user$project$Page_TeamResult$viewSearchArea = A2(
-	_elm_lang$html$Html$div,
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html_Attributes$class('columns'),
-		_1: {ctor: '[]'}
-	},
-	{
-		ctor: '::',
-		_0: A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('column'),
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('field'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$label,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('label'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text('Search For A Team'),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
+var _user$project$Page_TeamResult$viewSearchArea = function (searchInput) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('columns'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('column'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('field'),
+							_1: {ctor: '[]'}
+						},
+						{
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$div,
+								_elm_lang$html$Html$label,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('control'),
+									_0: _elm_lang$html$Html_Attributes$class('label'),
 									_1: {ctor: '[]'}
 								},
 								{
 									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$input,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$class('input'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Events$onInput(_user$project$Page_TeamResult$SetSearch),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$placeholder('Text input'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$type_('text'),
-														_1: {ctor: '[]'}
-													}
-												}
-											}
-										},
-										{ctor: '[]'}),
+									_0: _elm_lang$html$Html$text('Search For A Team'),
 									_1: {ctor: '[]'}
 								}),
 							_1: {
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$p,
+									_elm_lang$html$Html$div,
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$class('help'),
+										_0: _elm_lang$html$Html_Attributes$class('control'),
 										_1: {ctor: '[]'}
 									},
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text('Search by country or FIFA code'),
+										_0: A2(
+											_elm_lang$html$Html$input,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('input'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Events$onInput(_user$project$Page_TeamResult$SetSearch),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$placeholder('Text input'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$type_('text'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$value(searchInput),
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											},
+											{ctor: '[]'}),
 										_1: {ctor: '[]'}
 									}),
-								_1: {ctor: '[]'}
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$p,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('help'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Search by country or FIFA code'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
 							}
-						}
-					}),
-				_1: {ctor: '[]'}
-			}),
-		_1: {ctor: '[]'}
-	});
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$Page_TeamResult$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$section,
@@ -16802,7 +16808,7 @@ var _user$project$Page_TeamResult$view = function (model) {
 				},
 				{
 					ctor: '::',
-					_0: _user$project$Page_TeamResult$viewSearchArea,
+					_0: _user$project$Page_TeamResult$viewSearchArea(model.searchInput),
 					_1: {
 						ctor: '::',
 						_0: _user$project$Page_TeamResult$viewSearchResults(model.searchResults),
@@ -16871,7 +16877,6 @@ var _user$project$Main$TransitioningFrom = function (a) {
 var _user$project$Main$Loaded = function (a) {
 	return {ctor: 'Loaded', _0: a};
 };
-var _user$project$Main$ToggleMobileNav = {ctor: 'ToggleMobileNav'};
 var _user$project$Main$TeamMsg = function (a) {
 	return {ctor: 'TeamMsg', _0: a};
 };
@@ -17000,14 +17005,6 @@ var _user$project$Main$updatePage = F3(
 		switch (_p6._0.ctor) {
 			case 'SetRoute':
 				return A2(_user$project$Main$setRoute, _p6._0._0, model);
-			case 'ToggleMobileNav':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{isOpenMobileNav: !model.isOpenMobileNav}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
 			case 'HomeLoaded':
 				if (_p6._0._0.ctor === 'Ok') {
 					return {
@@ -17091,7 +17088,7 @@ var _user$project$Main$main = A2(
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"message":"Main.Msg","aliases":{"Data.Match.Event":{"type":"{ id : Int, typeOfEvent : String, player : String, time : String }","args":[]},"Page.TeamResult.Model":{"type":"{ searchInput : String , searchResults : List Data.TeamResult.TeamResult , selectedTeam : Maybe.Maybe Data.TeamResult.TeamResult , teamResults : List Data.TeamResult.TeamResult }","args":[]},"Page.Errored.Model":{"type":"{ activePage : Views.Page.ActivePage, errorMessage : String }","args":[]},"Data.Match.Match":{"type":"{ venue : String , location : String , status : String , time : String , fifaId : String , datetime : String , lastEventUpdateAt : String , lastScoreUpdateAt : String , homeTeam : Data.Match.Team , awayTeam : Data.Match.Team , winner : String , winnerCode : String , homeTeamEvents : List Data.Match.Event , awayTeamEvents : List Data.Match.Event }","args":[]},"Data.TeamResult.TeamResult":{"type":"{ id : Int , country : String , alternateName : String , fifaCode : String , groupId : Int , groupLetter : String , wins : Int , draws : Int , losses : Int , gamesPlayed : Int , points : Int , goalsFor : Int , goalsAgainst : Int , goalDifferential : Int }","args":[]},"Page.Home.Model":{"type":"{ matches : List Data.Match.Match }","args":[]},"Data.Match.Team":{"type":"{ country : String, code : String, goals : Int }","args":[]}},"unions":{"Main.Msg":{"tags":{"TeamResultLoaded":["Result.Result Page.Errored.PageLoadError Page.TeamResult.Model"],"ToggleMobileNav":[],"TeamMsg":["Page.TeamResult.Msg"],"HomeLoaded":["Result.Result Page.Errored.PageLoadError Page.Home.Model"],"SetRoute":["Maybe.Maybe Route.Route"]},"args":[]},"Page.Errored.PageLoadError":{"tags":{"PageLoadError":["Page.Errored.Model"]},"args":[]},"Views.Page.ActivePage":{"tags":{"TeamResult":[],"Other":[],"Home":[]},"args":[]},"Result.Result":{"tags":{"Err":["error"],"Ok":["value"]},"args":["error","value"]},"Page.TeamResult.Msg":{"tags":{"SetSearch":["String"],"SetSelectedTeam":["Int"]},"args":[]},"Maybe.Maybe":{"tags":{"Nothing":[],"Just":["a"]},"args":["a"]},"Route.Route":{"tags":{"TeamResult":[],"Home":[],"Root":[]},"args":[]}}},"versions":{"elm":"0.18.0"}});
+    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"message":"Main.Msg","aliases":{"Data.Match.Event":{"type":"{ id : Int, typeOfEvent : String, player : String, time : String }","args":[]},"Page.TeamResult.Model":{"type":"{ searchInput : String , searchResults : List Data.TeamResult.TeamResult , selectedTeam : Maybe.Maybe Data.TeamResult.TeamResult , teamResults : List Data.TeamResult.TeamResult }","args":[]},"Page.Errored.Model":{"type":"{ activePage : Views.Page.ActivePage, errorMessage : String }","args":[]},"Data.Match.Match":{"type":"{ venue : String , location : String , status : String , time : String , fifaId : String , datetime : String , lastEventUpdateAt : String , lastScoreUpdateAt : String , homeTeam : Data.Match.Team , awayTeam : Data.Match.Team , winner : String , winnerCode : String , homeTeamEvents : List Data.Match.Event , awayTeamEvents : List Data.Match.Event }","args":[]},"Data.TeamResult.TeamResult":{"type":"{ id : Int , country : String , alternateName : String , fifaCode : String , groupId : Int , groupLetter : String , wins : Int , draws : Int , losses : Int , gamesPlayed : Int , points : Int , goalsFor : Int , goalsAgainst : Int , goalDifferential : Int }","args":[]},"Page.Home.Model":{"type":"{ matches : List Data.Match.Match }","args":[]},"Data.Match.Team":{"type":"{ country : String, code : String, goals : Int }","args":[]}},"unions":{"Main.Msg":{"tags":{"TeamResultLoaded":["Result.Result Page.Errored.PageLoadError Page.TeamResult.Model"],"TeamMsg":["Page.TeamResult.Msg"],"HomeLoaded":["Result.Result Page.Errored.PageLoadError Page.Home.Model"],"SetRoute":["Maybe.Maybe Route.Route"]},"args":[]},"Page.Errored.PageLoadError":{"tags":{"PageLoadError":["Page.Errored.Model"]},"args":[]},"Views.Page.ActivePage":{"tags":{"TeamResult":[],"Other":[],"Home":[]},"args":[]},"Result.Result":{"tags":{"Err":["error"],"Ok":["value"]},"args":["error","value"]},"Page.TeamResult.Msg":{"tags":{"SetSearch":["String"],"SetSelectedTeam":["Int"]},"args":[]},"Maybe.Maybe":{"tags":{"Nothing":[],"Just":["a"]},"args":["a"]},"Route.Route":{"tags":{"TeamResult":[],"Home":[],"Root":[]},"args":[]}}},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])
